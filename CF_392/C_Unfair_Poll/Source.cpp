@@ -1,18 +1,24 @@
 #include <stdio.h>
+//#include <iostream>
+#include <stdint.h>
+
+//using namespace std;
 
 enum Pointer{FIRST, LAST};
 
 int main() {
 
-	unsigned char n, m, x, y;
-	unsigned long long k;
-	scanf("%hhu %hhu %llu %hhu %hhu", &n, &m, &k, &x, &y);
+	uint16_t n, m, x, y;
+	uint64_t k;
+	scanf("%hu %hu %I64d %hu %hu", &n, &m, &k, &x, &y);
+	//cin >> n >> m >> k >> x >> y;
+	//cout << n << ' ' << m << ' ' << k << ' ' << x << ' ' << y << endl;
 
-	unsigned long long max, min, s;
+	uint64_t max, min, s;
 	if (n == 1) {
-		unsigned long long times = k / m;
+		uint64_t times = k / m;
 		s = min = max = times;
-		unsigned char left = k % m;
+		uint16_t left = k % m;
 		if (left) {
 			max++;
 			if (y <= left)
@@ -20,12 +26,12 @@ int main() {
 		}
 	}
 	else {
-		unsigned short q = ((unsigned short)n - 1) * m;
-		unsigned long long times = k / q;
-		unsigned short left = k % q;
-		unsigned long long middleRows;
+		uint16_t q = ((uint16_t)n - 1) * m;
+		uint64_t times = k / q;
+		uint16_t left = k % q;
+		uint64_t middleRows;
 		max = middleRows = times;
-		unsigned long long firstRow, lastRow;
+		uint64_t firstRow, lastRow;
 		firstRow = lastRow = times >> 1;
 
 		Pointer ptr;
@@ -50,7 +56,7 @@ int main() {
 			}
 		}
 
-		unsigned short dist = 0;
+		uint16_t dist = 0;
 		switch (ptr) {
 		case FIRST:
 			dist = (x - 1) * m + y;
@@ -80,6 +86,7 @@ int main() {
 		min = lastRow;
 	}
 	printf("%I64d %I64d %I64d", max, min, s);
+	//cout << max << ' ' << min << ' ' << s;
 
 	return 0;
 }
